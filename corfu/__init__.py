@@ -1,0 +1,3 @@
+print "corfu"
+
+import corfu
