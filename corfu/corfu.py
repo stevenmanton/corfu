@@ -13,6 +13,7 @@ class D3Vis(object):
 
         self.vis_css_template = ''
         self.vis_js_template = ''
+        self.vis_data_json = '{}'
         return
 
     @property
@@ -39,7 +40,7 @@ class D3Vis(object):
         template_dict = {'vis_str': self.id_str,
             'vis_js': self.vis_js_template,
             'vis_css': self.vis_css_template,
-            'vis_data_json': self.data_json}
+            'vis_data_json': self.vis_data_json}
         return render(html_template, template_dict)
 
     def _to_html(self):
@@ -178,8 +179,12 @@ class CalendarView(D3Vis):
         self.data = data
     
     @property
-    def data_json(self):
-        return json.dumps(self.data)
+    def data(self):
+        return self._data
+    @data.setter
+    def data(self, value):
+        self._data = value
+        self.vis_data_json = json.dumps(self._data)
 
 
     
